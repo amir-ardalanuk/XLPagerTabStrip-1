@@ -24,6 +24,7 @@
 
 import UIKit
 import Foundation
+import UIKit
 
 open class ButtonBarViewCell: UICollectionViewCell {
 
