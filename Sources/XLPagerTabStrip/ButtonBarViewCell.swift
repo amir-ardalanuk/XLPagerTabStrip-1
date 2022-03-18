@@ -28,14 +28,34 @@ import UIKit
 
 open class ButtonBarViewCell: UICollectionViewCell {
 
-    @IBOutlet open var imageView: UIImageView!
-    @IBOutlet open var label: UILabel!
+    open var imageView: UIImageView!
+    open var label: UILabel!
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+        setupView()
         isAccessibilityElement = true
         accessibilityTraits.insert([.button, .header])
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    func setupView() {
+        [imageView , label].forEach { contentView.addSubview($0) }
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: 35.0),
+            imageView.widthAnchor.constraint(equalToConstant: 35.0),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
     }
     
     open override var isSelected: Bool {
