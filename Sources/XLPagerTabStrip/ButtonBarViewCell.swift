@@ -28,8 +28,18 @@ import UIKit
 
 open class ButtonBarViewCell: UICollectionViewCell {
 
-    open var imageView: UIImageView!
-    open var label: UILabel!
+    open lazy var imageView: UIImageView = {
+      let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    open var label: UILabel =  {
+       let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14.0)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
