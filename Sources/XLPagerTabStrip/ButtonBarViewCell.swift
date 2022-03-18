@@ -31,6 +31,7 @@ open class ButtonBarViewCell: UICollectionViewCell {
     open lazy var imageView: UIImageView = {
       let image = UIImageView()
         image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     open var label: UILabel =  {
@@ -38,6 +39,7 @@ open class ButtonBarViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = .white
         label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
