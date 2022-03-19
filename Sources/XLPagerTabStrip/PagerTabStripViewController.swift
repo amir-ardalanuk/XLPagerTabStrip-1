@@ -60,6 +60,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
 
     open private(set) var viewControllers = [UIViewController]()
     open private(set) var currentIndex = 0
+    open var preDefineIndex = 0
     open private(set) var preCurrentIndex = 0 // used *only* to store the index to which move when the pager becomes visible
 
     open var pageWidth: CGFloat {
@@ -124,6 +125,8 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         let needToUpdateCurrentChild = preCurrentIndex != currentIndex
         if needToUpdateCurrentChild {
             moveToViewController(at: preCurrentIndex)
+        } else if preDefineIndex > 0  {
+            moveToViewController(at: preDefineIndex, animated: false)
         }
         isViewAppearing = false
         children.forEach { $0.endAppearanceTransition() }
