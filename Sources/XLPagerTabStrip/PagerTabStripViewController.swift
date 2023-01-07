@@ -198,11 +198,11 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     }
 
     open func pageOffsetForChild(at index: Int) -> CGFloat {
-        return CGFloat(index) * containerView.bounds.width
+        return CGFloat(viewControllers.count - 1 - index) * containerView.bounds.width
     }
 
     open func offsetForChild(at index: Int) -> CGFloat {
-        return (CGFloat(index) * containerView.bounds.width) + ((containerView.bounds.width - view.bounds.width) * 0.5)
+        return (CGFloat(viewControllers.count - 1 - index) * containerView.bounds.width) + ((containerView.bounds.width - view.bounds.width) * 0.5)
     }
 
     open func offsetForChild(viewController: UIViewController) throws -> CGFloat {
@@ -218,7 +218,11 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
     }
 
     open func virtualPageFor(contentOffset: CGFloat) -> Int {
-        return Int((contentOffset + 1.5 * pageWidth) / pageWidth) - 1
+        let totalWidth = CGFloat(viewControllers.count - 1) * pageWidth
+        return viewControllers
+            .indices
+            .map { (index: $0, startingOffset: totalWidth - (pageWidth * (CGFloat($0) + 0.5))) }
+            .first { $0.startingOffset < contentOffset}?.index ?? -1
     }
 
     open func pageFor(virtualPage: Int) -> Int {
@@ -348,7 +352,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         var toIndex = currentIndex
         let direction = swipeDirection
 
-        if direction == .left {
+        if direction == .right {
             if virtualPage > count - 1 {
                 fromIndex = count - 1
                 toIndex = count
@@ -359,7 +363,7 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
                     toIndex = fromIndex + 1
                 }
             }
-        } else if direction == .right {
+        } else if direction == .left {
             if virtualPage < 0 {
                 fromIndex = 0
                 toIndex = -1

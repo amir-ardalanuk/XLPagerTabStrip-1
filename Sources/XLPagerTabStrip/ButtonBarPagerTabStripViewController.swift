@@ -113,7 +113,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         })
 
         let buttonBarViewAux = buttonBarView ?? {
-                let flowLayout = UICollectionViewFlowLayout()
+                let flowLayout = RTLCollectionViewFlowLayout()
                 flowLayout.scrollDirection = .horizontal
                 let buttonBarHeight = settings.style.buttonBarHeight ?? 44
                 let buttonBar = ButtonBarView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: buttonBarHeight), collectionViewLayout: flowLayout)
